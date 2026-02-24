@@ -1,0 +1,42 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Bash syntax check
+        run: bash -n validate_repo.sh
+
+      - name: Python syntax check
+        run: |
+          python -m py_compile scripts/check_library_index.py projects/agent-starter-lab/src/agent_runtime.py
+
+      - name: Placeholder marker scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          if command -v rg >/dev/null 2>&1; then
+            ! rg -n "TODO|TBD|FIXME|PLACEHOLDER|REPLACE_WITH_|lorem ipsum" . \
+              --glob '!**/.git/**' \
+              --glob '!validate_repo.sh' \
+              --glob '!.github/workflows/**'
+          else
+            echo "rg not available; skipping"
+          fi

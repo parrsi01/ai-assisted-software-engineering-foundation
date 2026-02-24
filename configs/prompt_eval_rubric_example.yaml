@@ -1,0 +1,8 @@
+rubric:
+  correctness: 0.4
+  completeness: 0.2
+  safety: 0.2
+  actionability: 0.2
+thresholds:
+  pass: 0.85
+  warn: 0.70
