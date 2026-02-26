@@ -40,8 +40,15 @@ check_dir() {
 
 echo "Repository Validation"
 check_file README.md
+check_file LICENSE
+check_file Makefile
+check_file pyproject.toml
+check_file requirements.in
+check_file requirements.txt
 check_file docs/PROJECT_MANUAL.md
 check_file docs/LESSON_EXECUTION_COMPANION.md
+check_file docs/CV_READY_SUMMARY.md
+check_file docs/PORTFOLIO_SKILL_MAPPING.md
 check_file prompts/oneshot/AISE_REPO_BUILDER_ONESHOT.md
 check_dir docs
 check_dir Library
